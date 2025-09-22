@@ -1,7 +1,7 @@
-import SentimentAnalyzer from '@/components/SentimentAnalyzer';
+import GovernmentDashboard from '@/components/GovernmentDashboard';
 
 const Index = () => {
-  return <SentimentAnalyzer />;
+  return <GovernmentDashboard />;
 };
 
 export default Index;

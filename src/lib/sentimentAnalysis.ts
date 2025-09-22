@@ -9,6 +9,10 @@ export interface SentimentResult {
   compound: number;
   rating: number;
   overallSentiment: 'positive' | 'negative' | 'neutral';
+  confidence: number;
+  language?: string;
+  timestamp: string;
+  id: string;
 }
 
 // Custom word lexicon with sentiment scores
@@ -51,7 +55,10 @@ export function analyzeSentiment(text: string): SentimentResult {
       neutral: 1,
       compound: 0,
       rating: 3,
-      overallSentiment: 'neutral'
+      overallSentiment: 'neutral',
+      confidence: 0,
+      timestamp: new Date().toISOString(),
+      id: Math.random().toString(36).substr(2, 9)
     };
   }
 
@@ -134,6 +141,18 @@ export function analyzeSentiment(text: string): SentimentResult {
   } else {
     overallSentiment = 'neutral';
   }
+
+  // Calculate confidence level based on sentiment score strength and word count
+  const absCompound = Math.abs(compound);
+  const wordCountFactor = Math.min(wordCount / 10, 1); // More words = higher confidence
+  const sentimentStrength = absCompound; // Stronger sentiment = higher confidence
+  let confidence = (sentimentStrength + wordCountFactor) / 2;
+  
+  // Boost confidence for very clear sentiment
+  if (absCompound > 0.5) confidence += 0.2;
+  if (wordCount > 20) confidence += 0.1;
+  
+  confidence = Math.max(0, Math.min(1, confidence)); // Clamp to [0, 1]
   
   return {
     text,
@@ -142,7 +161,10 @@ export function analyzeSentiment(text: string): SentimentResult {
     neutral: Math.round(neutralPercent * 100) / 100,
     compound: Math.round(compound * 100) / 100,
     rating: Math.max(1, Math.min(5, rating)),
-    overallSentiment
+    overallSentiment,
+    confidence: Math.round(confidence * 100) / 100,
+    timestamp: new Date().toISOString(),
+    id: Math.random().toString(36).substr(2, 9)
   };
 }
 
