@@ -57,6 +57,32 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        positive: {
+          DEFAULT: "hsl(var(--positive))",
+          foreground: "hsl(var(--positive-foreground))",
+          light: "hsl(var(--positive-light))",
+        },
+        negative: {
+          DEFAULT: "hsl(var(--negative))",
+          foreground: "hsl(var(--negative-foreground))",
+          light: "hsl(var(--negative-light))",
+        },
+        neutral: {
+          DEFAULT: "hsl(var(--neutral))",
+          foreground: "hsl(var(--neutral-foreground))",
+          light: "hsl(var(--neutral-light))",
+        },
+      },
+      backgroundImage: {
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-card": "var(--gradient-card)",
+        "gradient-positive": "var(--gradient-positive)",
+        "gradient-negative": "var(--gradient-negative)",
+        "gradient-neutral": "var(--gradient-neutral)",
+      },
+      boxShadow: {
+        "card": "var(--shadow-card)",
+        "elevation": "var(--shadow-elevation)",
       },
       borderRadius: {
         lg: "var(--radius)",
